@@ -32,8 +32,8 @@ public class Executor {
     Mercury, Earth, Mars, Jupiter, Uranus, Neptune,*/
     public enum PlanetName{
         Mercury (0),
-        Earth (0) ,
-        Venus (1),
+        Earth (1) ,
+        Venus (0),
         Mars (2),
         Jupiter (80),
         Saturn (83),
@@ -48,56 +48,37 @@ public class Executor {
 
         public static String planetMoon(){
             System.out.println("Enter planet name: ");
-            String input = scanner.nextLine();
-            return input;
+            return scanner.next();
         }
-
-        public static int returnMoons(PlanetName planet) {
-            int moon=0;
-            switch (planet) {
-                case Mercury:
-                case Venus:
-                    moon = 0;
-                    break;
-                case Earth:
-                    moon = 1;
-                    break;
-                case Mars:
-                    moon = 2;
-                    break;
-                case Jupiter:
-                    moon = 80;
-                    break;
-                case Saturn:
-                    moon = 83;
-                    break;
-                case Uranus:
-                    moon = 27;
-                    break;
-                case Neptune:
-                    moon = 14;
-                    break;
+        public static int returnNumMoons(String planet) {
+            int numMoons = 0;
+            for (PlanetName p: PlanetName.values()) {
+                if (planet.equalsIgnoreCase(String.valueOf(p))) {
+                    numMoons = p.numberofMoons;
+                }
             }
-            return moon;
+            return numMoons;
         }
-
-
-
+    }
+    public static void displayNumMoons(String planet, int numMoons) {
+        System.out.println("The number of moons on " + planet + " is " + numMoons + ".");
     }
 
     public static void main(String[] args) {
-        String planetName = getPlanetName();
-        double radii = getRadius();
-        double planetArea = sol.getArea(radii);
-        displayArea(planetArea);
-        getStar(sol);
-        getPos(sol, planetName);
+       String planetName = getPlanetName();
+//        double radii = getRadius();
+//        double planetArea = sol.getArea(radii);
+//        displayArea(planetArea);
+//        getStar(sol);
+//        getPos(sol, planetName);
 
         celestialobyecto.displayCelestialObject();
         MilkywayGalaxy.displayMilkyway();
-        PlanetName planet = PlanetName.valueOf(planetMoon());
-        System.out.println("The number of moons this planet has is: "+ planet.numberofMoons);
+        //PlanetName planet = PlanetName.valueOf(planetMoon());
+       // System.out.println("The number of moons this planet has is: "+ planet.numberofMoons);
+        int numMoons = PlanetName.returnNumMoons(planetName);
 
+        displayNumMoons(planetName, numMoons);
     }
 
     //Create a method which displays the message “Enter the planet name” and returns the input value from the user as String type.
@@ -127,18 +108,4 @@ public class Executor {
         int position = sol.getPos(planetName);
         System.out.println("The position of the planet is: " + position);
     }}
-    /*interface CelestialObject {
-        void displayCelestialObject();
-    }
 
-
-    static CelestialObject celestialobyecto = new CelestialObject() {
-        @Override
-        public void displayCelestialObject() {
-            System.out.println("Comet is a celestial object");
-        }
-
-
-
-    };
-     */
